@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema({
@@ -16,9 +17,9 @@ const UserSchema = new Schema({
 		},
 	},
 	// references Thought model _id
-	thoughts: {},
+	thoughts: [],
 	// self-referencial to User model _id
-	friends: {},
+	friends: [{name: String,}],
 });
 
 const User = model("User", UserSchema);
