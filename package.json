@@ -1,0 +1,23 @@
+{
+  "name": "18.friendly-thoughts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-breezy/friendly-thoughts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a-breezy/friendly-thoughts/issues"
+  },
+  "homepage": "https://github.com/a-breezy/friendly-thoughts#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mogoose": "^0.0.1-security"
+  }
+}
