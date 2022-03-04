@@ -16,9 +16,20 @@ const UserSchema = new Schema({
 		// },
 	},
 	// references Thought model _id
-	thoughts: [],
+	thoughts: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "Comment",
+		},
+	],
 	// self-referencial to User model _id
 	friends: [{ name: String }],
+},
+{
+	toJSON: {
+		virtuals: true
+	},
+	id: false
 });
 
 const User = model("User", UserSchema);
