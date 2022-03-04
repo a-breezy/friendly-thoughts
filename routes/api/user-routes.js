@@ -7,7 +7,7 @@ const {
 	deleteUser,
 } = require("../../controllers/user-controller");
 
-// GET and POST routes for /api/users
+// GET and POST routes for /api/user
 router.route("/").get(getAllUsers).post(createUser);
 
 // GET, PUT, DELETE /api/pizzas/:id
