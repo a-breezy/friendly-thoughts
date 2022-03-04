@@ -10,8 +10,7 @@ app.use(express.static("public"));
 
 // app.use(require("./routes"));
 
-// tells mongoose which db to connect to
-// if MONGODB_URI (like on heroku)use that, otehrwise use local server
+// connect to process.env of localhost
 mongoose.connect(
 	process.env.MONGODB_URI || "mongodb://localhost:27017/pizza-hunt",
 	{
