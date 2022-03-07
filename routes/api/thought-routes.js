@@ -8,7 +8,10 @@ const {
 // GET and POST routes for /api/thought
 router.route("/").get(getAllThoughts).post(createThought);
 
-// GET /api/thought/:id
-router.route("/:id").get(getThoughById);
+// GET, PUT, DELETE /api/thought/:id
+router.route("/:id").get(getThoughById).put().delete();
+
+// POST DELETE reactions /api/thoughts/:thoughtId/reactions
+router.route("/:thoughtId/reactions").post().delete();
 
 module.exports = router;

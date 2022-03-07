@@ -1,3 +1,4 @@
+const { application } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -8,11 +9,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// app.use(require("./routes"));
+app.use(require("./routes"));
 
 // connect to process.env of localhost
 mongoose.connect(
-	process.env.MONGODB_URI || "mongodb://localhost:27017/pizza-hunt",
+	process.env.MONGODB_URI || "mongodb://localhost:27017/friendly-thoughts",
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true,

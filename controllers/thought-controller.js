@@ -1,7 +1,7 @@
-const { cloneDeep } = require("sequelize/dist/lib/utils");
 const { Thought, User } = require("../models");
 
 const thoughtController = {
+	getAllThoughts({}) {},
 	addThought({ params, body }, res) {
 		console.log(body);
 		Thought.create(body)
@@ -21,15 +21,18 @@ const thoughtController = {
 			})
 			.catch((err) => res.json(err));
 	},
-	removeThought({params}, res) {
-        Thought.findOneAndDelete({_id: params.thoughtId})
-            .then(deletedThought => {
-                if(!deletedThought) {
-                    return res.status(404).json({message: "No thought with this ID!"})
-                }
-                return User.findOneAndUpdate
-            })
-    },
+	removeThought({ params }, res) {
+		Thought.findOneAndDelete({ _id: params.thoughtId }).then(
+			(deletedThought) => {
+				if (!deletedThought) {
+					return res.status(404).json({ message: "No thought with this ID!" });
+				}
+				return User.findOneAndUpdate;
+			}
+		);
+	},
+	updateThought() {},
+	deleteThought() {},
 };
 
 module.exports = thoughtController;

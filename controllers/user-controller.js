@@ -1,4 +1,3 @@
-const res = require("express/lib/response");
 const { User } = require("../models");
 
 const userController = {
@@ -14,7 +13,7 @@ const userController = {
 
 	// get user by id --> GET /api/user/:id
 	getUserById({ params }, res) {
-		User.findOne({ _if: params.id })
+		User.findOne({ _id: params.id })
 			.then((dbUserData) => {
 				if (!dbUserData) {
 					res.status(404).json({ message: "No user found with this Id" });
