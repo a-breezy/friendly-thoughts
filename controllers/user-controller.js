@@ -99,7 +99,7 @@ const userController = {
 				return User.findOneAndUpdate(
 					{ _id: params.userId },
 					{ $pull: { friend: params.friendId } },
-					{ new: true }
+					{ new: true, runValidators: true }
 				);
 			})
 			.then((dbUserData) => {

@@ -9,7 +9,7 @@ const thoughtController = {
 				select: "-__v",
 			})
 			.select("-__v")
-			.sort({ _is: -1 })
+			.sort({ _id: -1 })
 			.then((dbThoughtData) => res.json(dbThoughtData))
 			.catch((err) => {
 				console.log(err);
@@ -38,14 +38,14 @@ const thoughtController = {
 			});
 	},
 	// create thought || POST /api/thoughts
-	createThought({ params, body }, res) {
+	createThought({ body }, res) {
 		Thought.create(body)
 			.then(({ _id }) => {
 				return User.findOneAndUpdate(
 					// search for userId, push new thought to user, return json
 					{ _id: body.userId },
 					{ $push: { thought: _id } },
-					{ new: true }
+					{ new: true, runValidators: true }
 				);
 			})
 			.then((dbUserData) => {
@@ -87,7 +87,7 @@ const thoughtController = {
 					// return updated user json with user thoughts
 					{ _id: params.userId },
 					{ $pull: { thoughts: params.thoughtId } },
-					{ new: true }
+					{ new: true, runValidators: true }
 				);
 			})
 			.then((dbUserData) => {
@@ -103,7 +103,7 @@ const thoughtController = {
 	// create reaction || POST /api/thoughts/:thoughtId/reactions
 	createReaction({ params, body }, res) {
 		Thought.findOneAndUpdate(
-			// sesarch thoughts by id and push reaction body to thought.reactions[]
+			// search thoughts by id and push reaction body to thought.reactions[]
 			{ _id: params.thoughtId },
 			{ $push: { reactions: body } },
 			{ new: true, runValidators: true }
@@ -120,11 +120,10 @@ const thoughtController = {
 	},
 	// DELETE reaction || DELETE /api/thoughts/:thoughtId/reactions/:reactionId
 	removeReaction({ params }, res) {
-		console.log(params);
 		Thought.findOneAndUpdate(
 			{ _id: params.thoughtId },
 			{ $pull: { reactions: { reactionId: params.reactionId } } },
-			{ new: true }
+			{ new: true, runValidators: true }
 		)
 			.then((dbThoughtData) => res.json(dbThoughtData))
 			.catch((err) => res.json(err));
