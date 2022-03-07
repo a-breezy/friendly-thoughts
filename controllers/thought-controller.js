@@ -10,7 +10,7 @@ const thoughtController = {
 			})
 			.select("-__v")
 			.sort({ _is: -1 })
-			.then((dbThoughtData) => req.json(dbThoughtData))
+			.then((dbThoughtData) => res.json(dbThoughtData))
 			.catch((err) => {
 				console.log(err);
 				res.status(400).json(err);
@@ -43,15 +43,16 @@ const thoughtController = {
 			.then(({ _id }) => {
 				return User.findOneAndUpdate(
 					// search for userId, push new thought to user, return json
-					{ _id: params.userId },
+					{ _id: body.userId },
 					{ $push: { thought: _id } },
 					{ new: true }
 				);
 			})
 			.then((dbUserData) => {
 				if (!dbUserData) {
-					res.status(404).json({ message: "No user found with this id!" });
-					return;
+					return res
+						.status(404)
+						.json({ message: "No user found with this id!" });
 				}
 				res.json(dbUserData);
 			})
@@ -117,9 +118,10 @@ const thoughtController = {
 			})
 			.catch((err) => res.json(err));
 	},
-	// DELETE reaction || DELETE /api/thoughts/:thoughtId/reactions
+	// DELETE reaction || DELETE /api/thoughts/:thoughtId/reactions/:reactionId
 	removeReaction({ params }, res) {
-		Thought.findByIdAndUpdate(
+		console.log(params);
+		Thought.findOneAndUpdate(
 			{ _id: params.thoughtId },
 			{ $pull: { reactions: { reactionId: params.reactionId } } },
 			{ new: true }
